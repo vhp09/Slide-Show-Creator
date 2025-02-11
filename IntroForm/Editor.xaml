@@ -1,0 +1,636 @@
+﻿<Window x:Class="IntroForm.Editor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IntroForm"
+        mc:Ignorable="d"
+        Title="Editor" Height="650" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <Border CornerRadius="12">
+
+        <Border CornerRadius="10"
+            BorderThickness="2"
+            Opacity="1.0">
+
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#462AD8" Offset="0"/>
+                    <GradientStop Color="#DA34AE" Offset="0.75"/>
+                    <GradientStop Color="#8A16C1" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#060531" Offset="0"/>
+                    <GradientStop Color="#1B1448" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" BorderBrush ="LightGray" BorderThickness="0 0 0 1"></Border>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Slide Show Creator"
+                               Foreground="LightGray"
+                               FontSize="12"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+
+                    <Button x:Name="btnMinimize"                           
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnMaximize"                           
+                            BorderThickness="0"
+                            Content="O"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnMaximize_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnClose"                          
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="3"
+                            Click="btnClose_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" BorderBrush ="LightGray" BorderThickness="0 0 1 0">
+
+                        <Grid Grid.Column="0">
+                            <TabControl Background='Transparent' HorizontalAlignment="Center">
+
+                                <TabControl.Resources>
+                                    <Style TargetType="{x:Type TabItem}">
+                                        <Setter Property="Background" Value="#28AEED"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type TabItem}">
+                                                    <Border Background="{TemplateBinding Background}" BorderThickness="0,0,0,0">
+                                                        <ContentPresenter ContentSource="Header" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#DA34AE"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TabControl.Resources>
+
+                                <TabItem Header="SlideShowProperties" FontFamily="Montserrat"  Width="122" Height="30">
+                                    <Grid >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+
+                                            <Border Grid.Row="0" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <TextBlock x:Name="ShowTime" Text="Slideshow Duration:"
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            <Border Grid.Row="1" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <TextBlock x:Name="SlideTotal" Text="Total Number of Slides:"
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            <Border Grid.Row="2" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <TextBlock x:Name="AudioTotal" Text="Total Soundtracks:"
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            <Border Grid.Row="3" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <CheckBox x:Name="cbDefultTransition"
+                                                          Content="Default Transition"
+                                                          Background="#28AEED"
+                                                          Foreground="LightGray"
+                                                          FontSize="13"
+                                                          FontWeight="Medium"
+                                                          FontFamily="Montserrat"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Checked="cbHandleDefaultTransition"
+                                                          Unchecked="cbManualDefaultTransition"/>
+                                            </Border>
+                                            <Border Grid.Row="4" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <CheckBox x:Name="cbDefultTransitionLength"
+                                                          Content="Default Transition Length"
+                                                          Background="#28AEED"
+                                                          Foreground="LightGray"
+                                                          FontSize="13"
+                                                          FontWeight="Medium"
+                                                          FontFamily="Montserrat"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Checked="cbHandleDefaultTransitionLength"
+                                                          Unchecked="cbManualDefaultTransitionLength"/>
+                                            </Border>
+                                            <Border Grid.Row="5" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <CheckBox x:Name="cbDefaultImageDuration"
+                                                          Content="Default Image Duration"
+                                                          Background="#28AEED"
+                                                          Foreground="LightGray"
+                                                          FontSize="13"
+                                                          FontWeight="Medium"
+                                                          FontFamily="Montserrat"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Checked="cbHandleDefaultImageDuration"
+                                                          Unchecked="cbManualDefaultImageDuration"/>
+                                            </Border>
+                                            <Border Grid.Row="6" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                                <CheckBox x:Name="cbManualSlideShow"
+                                                          Content="Advance Slideshow Manually"
+                                                          Background="#28AEED"
+                                                          Foreground="LightGray"
+                                                          FontSize="13"
+                                                          FontWeight="Medium"
+                                                          FontFamily="Montserrat"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Center"
+                                                          Checked="cbHandleManualSlideShow"
+                                                          Unchecked="cbManualManualSlideShow"/>
+                                            </Border>
+
+
+                                        </Grid>
+
+
+
+                                        <Button x:Name="btnImportImages"                           
+                                                BorderThickness="0"
+                                                Content="Import Images"
+                                                Foreground="White"
+                                                FontSize="16"
+                                                FontFamily="Montserrat"
+                                                Cursor="Hand"
+                                                Grid.Row="1"
+                                                Click="btnImportImages_Click"
+                                                HorizontalAlignment="Left"
+                                                Margin="5 0 0 0">
+
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#28AEED"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#278BEF"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="115" Height="18"
+                                                CornerRadius="9"
+                                                Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+
+                                        </Button>
+                                        <Button x:Name="btnImportAudio"                           
+                                                BorderThickness="0"
+                                                Content="Import Audio"
+                                                Foreground="White"
+                                                FontSize="16"
+                                                FontFamily="Montserrat"
+                                                Cursor="Hand"
+                                                Grid.Row="1"
+                                                Click="btnImportAudio_Click"
+                                                HorizontalAlignment="Right"
+                                                Margin="0 0 5 0">
+
+
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#28AEED"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#278BEF"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="115" Height="18"
+                                                CornerRadius="9"
+                                                Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+
+                                        </Button>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="ImageProperties" FontFamily="Montserrat" Width="122">
+                                    <Grid>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="215"/>
+                                            <RowDefinition Height="150"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Border x:Name="ImagePreview" Grid.Row="0" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                          
+                                        </Border>
+
+                                        <Border Grid.Row="1" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                            <StackPanel Margin="5">
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="{x:Type RadioButton}">
+                                                        <Setter Property="Background" Value="#DA34AE"/>
+                                                        <Setter Property="Foreground" Value="LightGray"/>
+                                                        <Setter Property="FontSize" Value="14"/>
+                                                        <Setter Property="FontFamily" Value="Montserrat"/>
+                                                        <Setter Property="Margin" Value="10 0 0 2"/>
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <Label Foreground="LightGray"
+                                                       FontSize="16"
+                                                       FontFamily="Montserrat">Choose Transition:</Label>
+                                                <RadioButton Checked="rbChooseWipeUp" x:Name="WipeUp" GroupName="transition">Wipe Up</RadioButton>
+                                                <RadioButton Checked="rbChooseWipeDown" x:Name="WipeDown" GroupName="transition">Wipe Down</RadioButton>
+                                                <RadioButton Checked="rbChooseWipeLeft" x:Name="WipeLeft" GroupName="transition">Wipe Left</RadioButton>
+                                                <RadioButton Checked="rbChooseWipeRight" x:Name="WipeRight" GroupName="transition">Wipe Right</RadioButton>
+                                                <RadioButton Checked="rbChooseCrossFade" x:Name="CrossFade" GroupName="transition">Cross Fade</RadioButton>
+                                                <RadioButton Checked="rbChooseNone" x:Name="NoTransition" GroupName="transition">No Transition</RadioButton>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Grid.Row="2" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                            <StackPanel Orientation="Horizontal" Margin="5">
+                                                <TextBlock Text="Enter Transition Length:"
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                                <TextBox x:Name="TransitionLengthTextBox"
+                                                         PreviewTextInput="NumberValidationTextBox"
+                                                         TextChanged="tbSetTransitionLength"
+                                                         Margin="5 5 5 5"
+                                                         Width="63"
+                                                         Foreground="LightGray"
+                                                         FontSize="13"
+                                                         FontFamily="Montserrat"
+                                                         Background="#DA34AE"
+                                                         VerticalContentAlignment="Center"
+                                                         HorizontalContentAlignment="Center"/>
+                                                <TextBlock Text="ms"
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <Border Grid.Row="3" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                            <StackPanel Orientation="Horizontal" Margin="5">
+                                                <TextBlock Text="Enter Image Duration:   "
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                                <TextBox x:Name="ImageDurationTextBox"
+                                                         TextChanged="tbSetImageLength"
+                                                         PreviewTextInput="NumberValidationTextBox"
+                                                         Margin="5 5 5 5"
+                                                         Width="63"
+                                                         Foreground="LightGray"
+                                                         FontSize="13"
+                                                         FontFamily="Montserrat"
+                                                         Background="#DA34AE"
+                                                         VerticalContentAlignment="Center"
+                                                         HorizontalContentAlignment="Center"/>
+                                                <TextBlock Text="ms"
+                                                           Foreground="LightGray"
+                                                           FontSize="13"
+                                                           FontWeight="Medium"
+                                                           FontFamily="Montserrat"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                    </Grid>
+                                </TabItem>
+
+
+                            </TabControl>
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" BorderBrush ="LightGray" BorderThickness="0 0 1 0">
+
+                        <Grid Grid.Column="1">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition MinHeight="250"/>
+                                <RowDefinition MinHeight="150" MaxHeight="250"/>
+                                <RowDefinition MinHeight="50" MaxHeight="150"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                <Grid Grid.Row="0">
+                                    <ScrollViewer x:Name="MyScrollViewer" 
+                                                  HorizontalScrollBarVisibility="Hidden"
+                                                  VerticalScrollBarVisibility="Auto" 
+                                                  MinHeight="250" 
+                                                  Grid.Row="0"
+                                                  Margin="0,0,0,-1">
+
+                                        <WrapPanel Width="{Binding ElementName=MyScrollViewer, Path=ActualWidth}" x:Name="ImageDisplayPanel">
+
+                                        </WrapPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="1" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                <Grid>
+                                    <ScrollViewer x:Name="MyScrollViewer2"
+                                                  HorizontalScrollBarVisibility="Auto"
+                                                  VerticalScrollBarVisibility="Disabled"
+                                                  CanContentScroll="True">
+
+                                        <StackPanel Width="{Binding ElementName=MyScrollViewer2, Path=ActualWidth}"
+                                                    x:Name="SlidePanel"
+                                                    Orientation="Horizontal" 
+                                                    CanHorizontallyScroll="True" 
+                                                    ForceCursor="False" 
+                                                    SnapsToDevicePixels="True" 
+                                                    OverridesDefaultStyle="True"
+                                                    AllowDrop="True"
+                                                    Background="Transparent"
+                                                    DragOver="show_panel_DragOver"
+                                                    Drop="show_panel_Drop">
+
+
+
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Row="2" BorderBrush ="LightGray" BorderThickness="0 0 0 1">
+                                <Grid>
+                                    <ScrollViewer x:Name="MyScrollViewer3"
+                                                  HorizontalScrollBarVisibility="Auto"
+                                                  VerticalScrollBarVisibility="Disabled"
+                                                  CanContentScroll="True">
+
+                                        <StackPanel x:Name="AudioPanel" Width="{Binding ElementName=MyScrollViewer2, Path=ActualWidth}" 
+                                                    Orientation="Horizontal" 
+                                                    CanHorizontallyScroll="True" 
+                                                    ForceCursor="False" 
+                                                    SnapsToDevicePixels="True" 
+                                                    OverridesDefaultStyle="True">
+
+
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                </Grid>
+
+                <Border Grid.Row="2" BorderBrush ="LightGray" BorderThickness="0 1 0 0"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnBack"                           
+                        BorderThickness="0"
+                        Content="Back"
+                        Foreground="White"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="0"
+                        Click="btnBack_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="50" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+
+                    <Button x:Name="btnShow"                           
+                        BorderThickness="0"
+                        Content="Show"
+                        Foreground="White"
+                        FontSize="16"
+                        FontFamily="Montserrat"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="btnShow_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="50" Height="18"
+                                CornerRadius="9"
+                                Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </Grid>
+
+            </Grid>
+        </Border>
+    </Border>
+</Window>
